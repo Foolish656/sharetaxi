@@ -11,6 +11,7 @@ Contents:
 (VI)	welcome
 (VII)	settings
 (VIII)	profile
+(NTS) 	notes
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 (I) Connect
 - Required for accessing the Database. Holds the access names for the Database.
@@ -79,3 +80,11 @@ Confirm Changed Password:
 (VIII) Profile
 - Shows the User's name.
 - A User's profile can only be accessed by the User who owns it.
+**********************************************************************************************************************************************************
+(NTS) Notes
+- The dummy user has the following values:
+	-id = 1
+	-name = test
+	-password = Test1234
+	-email = test@test.com
+- There are 8 dummy routes and 1 dummy pool.
