@@ -24,11 +24,11 @@
       //Set ID and Username for session.php to access
          //session_register("myusername");
          $_SESSION['id'] = $row['userId'];
-         $_SESSION['login_user'] = $myUsername;
+         $_SESSION['loginUser'] = $myUsername;
          
          header("location: welcome.php");
       }else {
-         $error = "Your Login Name or Password is invalid";
+         $error = "Your Login Name or Password is invalid!";
       }
    }
 ?>
