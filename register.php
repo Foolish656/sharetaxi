@@ -13,7 +13,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email
 	$pass = $_POST['password'];
     
 	//Hash the password using sha256
-	$user_pass = hash( "sha256", $_POST['password']);
+	$userPass = hash( "sha256", $_POST['password']);
     
     //Retrieves the current date
     $date = date('Y-m-d h:i:s');
@@ -31,7 +31,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email
     //Adds the new account if there is no same email
     if(!$checker){
         $query = 
-            "INSERT INTO users values(null, '{$_POST['username']}', '{$user_pass}', '{$_POST['email']}', '{$date}', '0.0', '0.0')";
+            "INSERT INTO users values(null, '{$_POST['username']}', '{$userPass}', '{$_POST['email']}', '{$date}', '0.0', '0.0')";
         $result = mysqli_query($db, $query) or die("something went wrong! in registration");
         $id = mysqli_insert_id($db);
         if($result){
