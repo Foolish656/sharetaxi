@@ -19,9 +19,9 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email
     $date = date('Y-m-d h:i:s');
     
     //Query to check if the email submitted is already in use
-    $emaildraw = 
+    $emailDraw = 
         "SELECT users.email FROM users WHERE users.email = '{$_POST['email']}'";
-    if($drawn = mysqli_query($db, $emaildraw) or die("something went wrong! with email confirmation")){
+    if($drawn = mysqli_query($db, $emailDraw) or die("something went wrong! with email confirmation")){
         $checker = mysqli_num_rows($drawn);
         mysqli_free_result($drawn);
         if($checker){
@@ -60,10 +60,12 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email
 
 			<form method = 'POST' onsubmit = 'return checkForm(this)' action = 'register.php' class = 'box'>
                 <p id = "demo"></p>
+				<p>Username requires to have at least 3 characters restricted to numbers, letters, and underscores.</p>
 				<p>Username: <input id = "user" type = 'text' name = 'username' placeholder = 'Username' required pattern="\w+"></p>
 				<p>Email: <input id = "pass" type = 'email' name = 'email' placeholder = 'Email' required></p>
+				<p>Password requires at least 8 characters and has to contain 1 uppercase, 1 lowercase, and 1 number.</p>
 				<p>Password: <input id = "cpass" type = 'password' name = 'password' placeholder = 'Password' required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"></p>
-				<p>Confirm Password: <input type = 'password' name = 'cpassword' placeholder = 'Password' required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"></p>
+				<p>Confirm Password: <input type = 'password' name = 'cPassword' placeholder = 'Password' required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"></p>
                 <p><input type = 'submit' name = 'submit' class = 'btn btn-default'></p>
                 <h6>Already have an account? <a href = 'login.php'>Login</a> here.</h6>
 			</form>
@@ -110,7 +112,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email
         }        
         
         //Password Checking
-        if(form.password.value == form.cpassword.value){
+        if(form.password.value == form.cPassword.value){
             if(!checkPassword(form.password.value)) {
                 alert("The password you have entered is not valid!");
                 form.password.focus();
@@ -121,7 +123,7 @@ if(isset($_POST['username']) && isset($_POST['password']) && isset($_POST['email
             form.password.focus();
             return false;
         }
-        if(form.password.value != form.cpassword.value){
+        if(form.password.value != form.cPassword.value){
             alert("Password and Confirm Password are not the same. Please try again!");
             form.password.focus();
             return false;
