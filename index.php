@@ -3,7 +3,7 @@
 	
 	
 	//will be changed in the future for cache login
-    if(!isset($user_id)){
+    if(!isset($userId)){
         header("location: login.php");
     }
 ?>
