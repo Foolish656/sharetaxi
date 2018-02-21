@@ -9,13 +9,13 @@
     $failure = "location: login.php";
     $return = "location: settings.php";
 
-//Checks if user_id is given from session.php
+//Checks if userId is given from session.php
 if(!isset($userId)){
     header($failure);
 }
 //else{
 ////User ID is used to be able to access its account
-//    $user_id = $_SESSION['id'];
+//    $userId = $_SESSION['id'];
 //}
 
 //Dummy Defaults
@@ -24,7 +24,7 @@ if(!isset($userId)){
 //    $email = 'hello@hello.com';
 
 //This Query retrieves the name, password, and email of the user.
-    $query = "SELECT name AS username, password, email FROM users WHERE user_id = {$userId}";
+    $query = "SELECT name AS username, password, email FROM users WHERE userId = {$userId}";
     $result = mysqli_query($db, $query) or die("Something went wrong during retrieval of required data.");
     if($row = mysqli_fetch_assoc($result)){
         $user = $row['username'];
@@ -33,23 +33,23 @@ if(!isset($userId)){
     }
 
 //Details for Username Change
-    if(isset($_POST['nusername'])){
-        $userchange = "UPDATE users SET name = '{$_POST['nusername']}' WHERE user_id = {$userId} AND email = '{$email}'";
-        $res = mysqli_query($db, $userchange) or die("Username failed to change.");
+    if(isset($_POST['nUsername'])){
+        $userChange = "UPDATE users SET name = '{$_POST['nUsername']}' WHERE userId = {$userId} AND email = '{$email}'";
+        $res = mysqli_query($db, $userChange) or die("Username failed to change.");
         if($res){
             echo "<script>alert 'username has successfully been changed!';</script>";
-            $_SESSION['login_user'] = $_POST['nusername'];
+            $_SESSION['loginUser'] = $_POST['nUsername'];
             header($return);
         }
     }
 
 //Details for Password Change
-    if(isset($_POST['password']) && isset($_POST['npassword']) && isset($_POST['cpassword'])){
+    if(isset($_POST['password']) && isset($_POST['nPassword']) && isset($_POST['cPassword'])){
         $oldpassword = hash('sha256', "{$_POST['password']}");
-        if($pass == $oldpassword && $_POST['npassword'] == $_POST['cpassword']){
-            $newpassword = hash('sha256', "{$_POST['npassword']}");
-            $passchange = "UPDATE users SET password = '{$newpassword}' WHERE user_id = {$user_id} AND email = '{$email}'";
-            $res = mysqli_query($db, $passchange) or die("Password failed to change.");
+        if($pass == $oldpassword && $_POST['nPassword'] == $_POST['cPassword']){
+            $newPassword = hash('sha256', "{$_POST['nPassword']}");
+            $passChange = "UPDATE users SET password = '{$newPassword}' WHERE userId = {$userId} AND email = '{$email}'";
+            $res = mysqli_query($db, $passChange) or die("Password failed to change.");
             if($res){
                 echo '<script>alert("password has successfully been changed!");</script>';
             }
@@ -78,7 +78,7 @@ if(!isset($userId)){
                 
                 <form method = 'POST' onsubmit = 'return checkUser(this)' action = 'settings.php' class = 'box'>
                     <p>Old Username: <?php echo $user; ?></p>
-                    <p>New Username: <input id = 'user' type = 'text' name = 'nusername' placeholder = 'New Username' required pattern="\w+"></p>
+                    <p>New Username: <input id = 'user' type = 'text' name = 'nUsername' placeholder = 'New Username' required pattern="\w+"></p>
                     <p><input type = 'submit' name = 'submit' class = 'btn btn-default'></p>
                 </form>
                 
@@ -87,8 +87,8 @@ if(!isset($userId)){
                 
                 <form method = 'POST' onsubmit = 'return checkPass(this)' action = 'settings.php' class = 'box'>
                     <p>Old Password: <input id = 'pass' type = 'password' name = 'password' placeholder = 'Old Password' required pattern = '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'></p>
-                    <p>New Password: <input id = 'npass' type = 'password' name = 'npassword' placeholder = 'New Password' require pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'></p>
-                    <p>Confirm New Password: <input id = 'cpass' type = 'password' name = 'cpassword' placeholder = 'Confirm Password' require pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'></p>
+                    <p>New Password: <input id = 'npass' type = 'password' name = 'nPassword' placeholder = 'New Password' require pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'></p>
+                    <p>Confirm New Password: <input id = 'cpass' type = 'password' name = 'cPassword' placeholder = 'Confirm Password' require pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'></p>
                     <p><input type = 'submit' name = 'submit' class = 'btn btn-default'></p>
                 </form>
                 
@@ -108,17 +108,17 @@ if(!isset($userId)){
         //Checks for a new allowable username
         function checkUser(form){
         //Restricts username to have at least 3 characters
-            if(form.nusername.value.length < 3){
+            if(form.nUsername.value.length < 3){
                 alert("You cannot have a name that has less than 3 characters!");
-                form.nusername.focus();
+                form.nUsername.focus();
                 return false;
             }
         
         //Restricts username to numbers, letters, and underscores
             re = /^\w+$/;
-            if(!re.test(form.nusername.value)){
+            if(!re.test(form.nUsername.value)){
                 alert("Username must contain only letters, numbers and underscores!");
-                form.nusername.focus();
+                form.nUsername.focus();
                 return false;
             }
         //If no problem has been encountered
@@ -129,20 +129,20 @@ if(!isset($userId)){
         function checkPass(form){
             var hashed = hash('sha256', form.password.value);
             if(hashed == '<?php //echo $pass; ?>'){
-                if(form.npassword.value == form.cpassword.value){
-                    if(!checkPassword(form.npassword.value)) {
+                if(form.nPassword.value == form.cPassword.value){
+                    if(!checkPassword(form.nPassword.value)) {
                         alert("The password you have entered is not valid!");
-                        form.npassword.focus();
+                        form.nPassword.focus();
                         return false;
                     }
                 }else{
                     alert("Error: Please check that you've entered and confirmed your password!");
-                    form.npassword.focus();
+                    form.nPassword.focus();
                     return false;
                 }
-                if(form.npassword.value != form.cpassword.value){
+                if(form.nPassword.value != form.cPassword.value){
                     alert("Password and Confirm Password are not the same. Please try again!");
-                    form.npassword.focus();
+                    form.nPassword.focus();
                     return false;
                 }
             }else{
