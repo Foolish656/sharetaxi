@@ -8,10 +8,10 @@
       
       $hashed = hash('sha256', $_POST['password']); 
       
-      $myusername = mysqli_real_escape_string($db,$_POST['username']);
-      $mypassword = mysqli_real_escape_string($db,$hashed); 
+      $myUsername = mysqli_real_escape_string($db,$_POST['username']);
+      $myPassword = mysqli_real_escape_string($db,$hashed); 
       
-      $sql = "SELECT user_id FROM users WHERE name = '$myusername' AND password = '$mypassword'";
+      $sql = "SELECT user_id FROM users WHERE name = '$myUsername' AND password = '$myPassword'";
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       //$active = $row['active'];
@@ -23,8 +23,8 @@
       if($count == 1) {
       //Set ID and Username for session.php to access
          //session_register("myusername");
-         $_SESSION['id'] = $row['user_id'];
-         $_SESSION['login_user'] = $myusername;
+         $_SESSION['id'] = $row['userId'];
+         $_SESSION['login_user'] = $myUsername;
          
          header("location: welcome.php");
       }else {
