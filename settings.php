@@ -10,7 +10,7 @@
     $return = "location: settings.php";
 
 //Checks if user_id is given from session.php
-if(!isset($user_id)){
+if(!isset($userId)){
     header($failure);
 }
 //else{
@@ -24,7 +24,7 @@ if(!isset($user_id)){
 //    $email = 'hello@hello.com';
 
 //This Query retrieves the name, password, and email of the user.
-    $query = "SELECT name AS username, password, email FROM users WHERE user_id = {$user_id}";
+    $query = "SELECT name AS username, password, email FROM users WHERE user_id = {$userId}";
     $result = mysqli_query($db, $query) or die("Something went wrong during retrieval of required data.");
     if($row = mysqli_fetch_assoc($result)){
         $user = $row['username'];
@@ -34,7 +34,7 @@ if(!isset($user_id)){
 
 //Details for Username Change
     if(isset($_POST['nusername'])){
-        $userchange = "UPDATE users SET name = '{$_POST['nusername']}' WHERE user_id = {$user_id} AND email = '{$email}'";
+        $userchange = "UPDATE users SET name = '{$_POST['nusername']}' WHERE user_id = {$userId} AND email = '{$email}'";
         $res = mysqli_query($db, $userchange) or die("Username failed to change.");
         if($res){
             echo "<script>alert 'username has successfully been changed!';</script>";
