@@ -10,9 +10,9 @@
    
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    
-   $login_session = $row['name'];
+   $loginSession = $row['name'];
 
-   $user_id = $row['user_id'];
+   $userId = $row['user_id'];
    
    if(!isset($_SESSION['login_user'])){
       header("location:login.php");
