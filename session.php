@@ -12,9 +12,9 @@
    
    $loginSession = $row['name'];
 
-   $userId = $row['user_id'];
+   $userId = $row['userId'];
    
-   if(!isset($_SESSION['login_user'])){
+   if(!isset($_SESSION['loginUser'])){
       header("location:login.php");
    }
 ?>
